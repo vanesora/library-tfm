@@ -1,0 +1,12 @@
+import styled from "styled-components";
+
+export const AgeGateContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const ButtonContainer = styled.div`
+  margin-top: 25px;
+`;

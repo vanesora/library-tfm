@@ -15,6 +15,8 @@ export const GeneralStyledBtn = styled.button`
   height: 60px;
   outline: none;
   justify-content: left;
+  align-items: center;
+    background-color: transparent;
 
   &:hover {
     label{

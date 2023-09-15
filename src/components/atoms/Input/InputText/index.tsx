@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { InputBase } from "./styles";
-import { IInputProps, ErrorsInput } from "interfaces";
-import { ThemeContext } from "context/context";
+import { Input } from "../styles";
+import { IInputProps } from "../InputTypes";
 
 export interface IInputTextProps extends IInputProps {
   value?: string;
-  withIcon?: boolean;
 }
 
 export const AtomInputText = ({
@@ -14,18 +12,14 @@ export const AtomInputText = ({
   readOnly = false,
   required = false,
   value = "",
-  withIcon = false,
   onChange = () => {},
   errorCallback = () => {},
-  styles,
   regex,
   hasCustomValidationError = false,
 }: IInputTextProps) => {
   const [val, setVal] = useState<string>(value);
   const [shouldValidate, setShouldValidate] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
-
-  const { palette } = useContext(ThemeContext);
 
   useState<boolean>(false);
   const [textRegex, setTextRegex] = useState<RegExp | null>(
@@ -57,9 +51,8 @@ export const AtomInputText = ({
   }, [value]);
 
   return (
-    <InputBase
-      colorPalette={palette}
-      withIcon={withIcon}
+    <Input
+      type="text"
       disabled={disabled}
       placeholder={placeholder}
       readOnly={readOnly}
@@ -71,7 +64,6 @@ export const AtomInputText = ({
         setVal(e.target.value);
         onChange(e.target.value);
       }}
-      styles={styles}
     />
   );
 };

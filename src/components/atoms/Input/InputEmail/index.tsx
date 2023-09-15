@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { InputEmail } from "./styles";
-import { IInputProps, ErrorsInput } from "interfaces";
-import { ThemeContext } from "context/context";
+import { Input } from "../styles";
+import { IInputProps } from "../InputTypes";
 
 export interface IInputEmailProps extends IInputProps {
   value?: string;
@@ -14,7 +13,6 @@ export const AtomInputEmail = ({
   required = false,
   value = "",
   regex,
-  styles = {},
   onChange = () => {},
   errorCallback = () => {},
   hasCustomValidationError = false,
@@ -58,11 +56,9 @@ export const AtomInputEmail = ({
     }
   };
 
-  const { palette } = useContext(ThemeContext);
 
   return (
-    <InputEmail
-      colorPalette={palette}
+    <Input
       type="email"
       hasError={hasError || hasCustomValidationError}
       disabled={disabled}
@@ -70,7 +66,6 @@ export const AtomInputEmail = ({
       readOnly={readOnly}
       required={required}
       value={val}
-      styles={styles}
       onChange={(e) => {
         setShouldValidate(true);
         setVal(e.target.value);

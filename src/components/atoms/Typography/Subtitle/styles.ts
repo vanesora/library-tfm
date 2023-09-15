@@ -1,138 +1,30 @@
-import styled, { CSSObject } from "styled-components";
-import { colors, mxSetup } from "data/dataMx";
-
-const {
-  mediaQuery: { tablet, mobile },
-} = mxSetup;
+import styled from "styled-components";
 
 export interface IStylesProps {
   align: string;
-  color: colors;
-  font: string;
-  styles?: CSSObject;
+  color: string;
+  size: string
 }
 
-export const SubtitleXLarge = styled.h4`
-  ${({ styles }) => styles};
-  font-family: ${({ font }: IStylesProps) => font};
-  font-size: 32px;
+export const Subtitle = styled.h2<IStylesProps>`
+  font-size: ${({ size }: IStylesProps) => size};
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: ${({ align }: IStylesProps) => align};
   color: ${({ color }: IStylesProps) => color};
   white-space: break-spaces;
 
-  @media (max-width: ${mobile.max} ) {
+  @media (max-width: 700px ) {
     font-weight: 300;
-    font-size: 30px;
+    font-size: 20px;
     line-height: 32px;
   }
 
-  @media (min-width: ${tablet.min}) and (max-width: ${tablet.max} ) {
+  @media (max-width: 400px  ) {
     font-weight: 300;
-    font-size: 32px;
+    font-size: 16px;
     line-height: 24px;
-  }
-`;
-
-export const SubtitleLarge = styled.h4`
-  ${({ styles }) => styles};
-  font-family: ${({ font }: IStylesProps) => font};
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: ${({ align }: IStylesProps) => align};
-  color: ${({ color }: IStylesProps) => color};
-  white-space: break-spaces;
-
-  @media (max-width: ${mobile.max} ) {
-    font-weight: 300;
-    font-size: 26px;
-    line-height: 28px;
-  }
-
-  @media (min-width: ${tablet.min}) and (max-width: ${tablet.max} ) {
-    font-weight: 300;
-    font-size: 28px;
-    line-height: 24px;
-  }
-`;
-
-export const SubtitleMedium = styled.h5`
-  ${({ styles }) => styles};
-  font-family: ${({ font }: IStylesProps) => font};
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0em;
-  text-align: ${({ align }: IStylesProps) => align};
-  color: ${({ color }: IStylesProps) => color};
-  white-space: break-spaces;
-
-  @media (max-width: ${mobile.max} ) {
-    font-weight: 300;
-    font-size: 22px;
-    line-height: 24px;
-  }
-
-  @media (min-width: ${tablet.min}) and (max-width: ${tablet.max} ) {
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 20px;
-  }
-`;
-
-export const SubtitleSmall = styled.h6`
-  ${({ styles }) => styles};
-  font-family: ${({ font }: IStylesProps) => font};
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0em;
-  text-align: ${({ align }: IStylesProps) => align};
-  color: ${({ color }: IStylesProps) => color};
-  white-space: break-spaces;
-
-  @media (max-width: ${mobile.max} ) {
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 22px;
-  }
-
-  @media (min-width: ${tablet.min}) and (max-width: ${tablet.max} ) {
-    font-weight: 300;
-    font-size: 22px;
-    line-height: 16px;
-  }
-`;
-
-export const SubtitleXSmall = styled.h6`
-  ${({ styles }) => styles};
-  font-family: ${({ font }: IStylesProps) => font};
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0.2px;
-  text-align: ${({ align }: IStylesProps) => align};
-  color: ${({ color }: IStylesProps) => color};
-  white-space: break-spaces;
-
-  @media (max-width: ${mobile.max} ) {
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 20px;
-  }
-
-  @media (min-width: ${tablet.min}) and (max-width: ${tablet.max} ) {
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 16px;
   }
 `;

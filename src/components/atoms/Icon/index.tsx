@@ -1,29 +1,18 @@
 import React, { useContext, useMemo } from "react";
-import iconSet from "icons/selection.json";
-import { keysTheme } from "data/dataMx";
-import { CSSObject } from "styled-components";
-import { IconContext } from "../../../../context/iconContext";
-import { ThemeContext } from "context/context";
-
+import iconSet from "../../../assets/icons/selection.json";
+import { IconContext } from "../../../context/iconContext";
 export interface IIconProps {
   icon: string;
-  size: number;
-  color?: keysTheme;
-  styles?: CSSObject;
+  size: "large" | "medium" | "small";
+  color?: string;
 }
 
-export const AtomIcon = ({
-  size,
-  icon,
-  color = "neutral700",
-  styles = {},
-}: IIconProps) => {
+export const AtomIcon = ({ size, icon, color = "black" }: IIconProps) => {
   const viewBoxMax = 1024;
   const localOffset = (0 / 2) * -1024;
   const offsetedViewBox = viewBoxMax - localOffset;
 
   const { icons } = useContext(IconContext);
-  const { palette } = useContext(ThemeContext);
 
   const currentIcon = useMemo(() => {
     // Any is used here in attrs because attrs can be diferent for each path
@@ -57,13 +46,30 @@ export const AtomIcon = ({
     })
   );
 
+  const currentSize = useMemo(() => {
+    let newSize = "";
+    switch (size) {
+      case "large":
+        newSize = "45px";
+        break;
+      case "medium":
+        newSize = "24px";
+        break;
+      case "small":
+        newSize = "15px";
+        break;
+      default:
+        break;
+    }
+    return newSize;
+  }, [size]);
+
   return React.createElement(
     "svg",
     {
-      style: styles,
-      fill: palette[color],
-      width: String(size),
-      height: String(size),
+      fill: String(color),
+      width: String(currentSize),
+      height: String(currentSize),
       viewBox: ""
         .concat(`${localOffset}`, " ")
         .concat(`${localOffset}`, " ")

@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState, useContext } from "react";
 import { InputContainer, InputPassword, ShowPassword } from "./styles";
-import { AtomIcon } from "react/atoms/Icon";
-import { IInputProps, ErrorsInput } from "interfaces";
-import { ThemeContext } from "context/context";
+import { IInputProps } from "../InputTypes";
+import { AtomIcon } from "../../Icon";
 
 export interface IInputPasswordProps extends IInputProps {
   value?: string;
@@ -16,12 +13,11 @@ export const AtomInputPassword = ({
   required = false,
   value = "",
   regex,
-  styles = {},
+  readOnly,
   onChange = () => {},
   errorCallback = () => {},
   hasCustomValidationError = false,
 }: IInputPasswordProps): JSX.Element => {
-  const { palette } = useContext(ThemeContext);
   const [val, setVal] = useState<string>(value);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
@@ -65,13 +61,12 @@ export const AtomInputPassword = ({
           hasError={hasError || hasCustomValidationError}
           required={required}
           value={val}
-          colors={palette}
+          readOnly={readOnly}
           onChange={(e) => {
             setShouldValidate(true);
             setVal(e.target.value);
             onChange(e.target.value);
           }}
-          styles={styles}
         />
         <ShowPassword
           id="showPassword"
@@ -84,14 +79,14 @@ export const AtomInputPassword = ({
           {!showPassword ? (
             <AtomIcon
               icon="eye-off"
-              size={20}
-              color={disabled ? "neutral400" : "neutral600"}
+              size={'small'}
+              color={disabled ? "#8b8888" : "#767171"}
             />
           ) : (
             <AtomIcon
               icon="eye-on"
-              size={20}
-              color={disabled ? "neutral400" : "neutral600"}
+              size={'small'}
+              color={disabled ? "#8b8888" : "#767171"}
             />
           )}
         </ShowPassword>

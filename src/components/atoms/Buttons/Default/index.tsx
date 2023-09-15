@@ -1,39 +1,45 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "context/context";
-import { GeneralStyledButton } from "./styles";
 import { IProps } from "../ButtonProps";
-import { IFontWeight } from "interfaces";
+import { GeneralStyledButton } from "./styles";
+import { AtomIcon } from "../../Icon";
+import { AtomParagraph } from "../../Typography/Paragraph";
 
 export const AtomButtonDefault = ({
   disabled,
   onClick,
-  color,
+  color='primary',
   text,
   type,
   width = "144px",
-  customColor = "tertiary",
+  customColor = "black",
   size = "small",
-  styles = {},
+  icon,
+  position = 'left',
   ...props
 }: IProps) => {
-  const { fontFamily, palette } = useContext(ThemeContext);
 
-  const font: string = fontFamily.main["regular" as keyof IFontWeight];
   return (
     <GeneralStyledButton
-      colorPalette={palette}
       disabled={disabled}
       onClick={onClick}
       color={color}
       width={width}
       type={type}
       customColor={customColor}
-      font={font}
       size={size}
-      styles={styles}
       {...props}
     >
-      {text}
+      {icon && position === 'left' && <AtomIcon
+        icon={icon}
+        size={size}
+        color={color === 'secondary'? '#090088' : 'white'}
+      />}
+      <AtomParagraph text={text} align="left" size="large" color={color === 'secondary'? '#090088' : 'white'}/>
+      {icon && position === 'right' && <AtomIcon
+        icon={icon}
+        size={size}
+        color={color === 'secondary'? '#090088' : 'white'}
+      />}
     </GeneralStyledButton>
   );
 };

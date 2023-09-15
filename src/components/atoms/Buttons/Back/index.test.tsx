@@ -1,9 +1,7 @@
-import React from "react";
 import "@testing-library/jest-dom";
-import { AtomButtonBack } from "./index";
-import { render, fireEvent } from "@testing-library/react";
-import { theme } from "data/dataMx";
+import { render, fireEvent, screen  } from "@testing-library/react";
 import { convertHexToRGBA } from "../mockTest/functions";
+import { AtomButtonBack } from ".";
 
 describe("[React] AtomButtonBack   ", () => {
   test("Render AtomButtonBack", () => {
@@ -11,15 +9,15 @@ describe("[React] AtomButtonBack   ", () => {
       disabled: false,
       text: "Text",
     } as const;
-    const component = render(<AtomButtonBack {...body} />);
-    component.getByText(body.text);
-    const button = document.querySelector("button") as HTMLButtonElement;
+    render(<AtomButtonBack {...body} />);
+    screen.getByText(body.text);
+    const button = screen.getByRole('button') as HTMLButtonElement;
     const buttonStyle = window.getComputedStyle(button);
     const color = buttonStyle.color;
-    expect(color).toEqual(convertHexToRGBA(theme.neutral600 ?? "#607781"));
+    expect(color).toEqual(convertHexToRGBA("#607781"));
 
     const backgroundColor = buttonStyle.backgroundColor;
-    expect(backgroundColor).toEqual(theme.transparent);
+    expect(backgroundColor).toEqual('transparent');
   });
 
   it("Render AtomButtonBack component not width", () => {
@@ -29,8 +27,8 @@ describe("[React] AtomButtonBack   ", () => {
       styles: { border: "1px solid red" },
       arrowColor: "primary100",
     } as const;
-    const component = render(<AtomButtonBack {...body} />);
-    const element = component.getByText(body.text);
+    render(<AtomButtonBack {...body} />);
+    const element = screen.getByText(body.text);
     expect(element).toHaveStyle({ width: 140 });
   });
 
@@ -40,8 +38,8 @@ describe("[React] AtomButtonBack   ", () => {
       text: "Accept",
       width: "200px",
     } as const;
-    const component = render(<AtomButtonBack {...body} />);
-    const element = component.getByText(body.text);
+    render(<AtomButtonBack {...body} />);
+    const element = screen.getByText(body.text);
     expect(element).toHaveStyle({ width: 200 });
   });
 
@@ -52,8 +50,8 @@ describe("[React] AtomButtonBack   ", () => {
       width: "100px",
       minWidth: "150px",
     } as const;
-    const component = render(<AtomButtonBack {...body} />);
-    const element = component.getByText(body.text);
+    render(<AtomButtonBack {...body} />);
+    const element = screen.getByText(body.text);
     expect(element).toHaveStyle({ width: 150 });
   });
 
@@ -65,8 +63,8 @@ describe("[React] AtomButtonBack   ", () => {
       minWidth: "150px",
       iconSize: 12,
     } as const;
-    const component = render(<AtomButtonBack {...body} />);
-    const element = component.getByText(body.text);
+    render(<AtomButtonBack {...body} />);
+    const element = screen.getByText(body.text);
     expect(element).toHaveStyle({ width: 150 });
   });
 
@@ -77,8 +75,8 @@ describe("[React] AtomButtonBack   ", () => {
       text: "Accept",
       onClick: handlePress,
     } as const;
-    const component = render(<AtomButtonBack {...body} />);
-    const element = component.getByText(body.text);
+    render(<AtomButtonBack {...body} />);
+    const element = screen.getByText(body.text);
     fireEvent.click(element);
     expect(handlePress).toHaveBeenCalledTimes(0);
   });
@@ -90,8 +88,8 @@ describe("[React] AtomButtonBack   ", () => {
       text: "Accept",
       onClick: handlePress,
     } as const;
-    const component = render(<AtomButtonBack {...body} />);
-    const element = component.getByText(body.text);
+    const view = render(<AtomButtonBack {...body} />);
+    const element = screen.getByText(body.text);
     fireEvent.focus(element);
     fireEvent.click(element);
     expect(handlePress).toHaveBeenCalledTimes(1);

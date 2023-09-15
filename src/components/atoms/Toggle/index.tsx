@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useContext, useState, Fragment, useEffect } from "react";
-import { ThemeContext } from "context/context";
-import { IFontWeight, ISetup } from "interfaces";
 import {
   ToggleWrapperXs,
   LabelTextXs,
@@ -32,9 +30,6 @@ export const AtomToggle = ({
   labelText,
   onToggle,
 }: IToggleProps): JSX.Element => {
-  const { palette } = useContext(ThemeContext);
-  const { fontFamily } = useContext(ThemeContext);
-  const font: string = fontFamily.main["regular" as keyof IFontWeight];
   const [checked, setChecked] = useState<boolean>(isChecked);
 
   useEffect(() => {
@@ -43,9 +38,9 @@ export const AtomToggle = ({
 
   return (
     <Fragment>
-      {labelText && <LabelTextXs font={font}>{labelText}</LabelTextXs>}
-      <ToggleWrapperXs className="toggle-wrapper" focus={focus} colors={palette}>
-        <ToggleContainerXs size={size} focus={focus} colors={palette}>
+      {labelText && <LabelTextXs>{labelText}</LabelTextXs>}
+      <ToggleWrapperXs className="toggle-wrapper" focus={focus}>
+        <ToggleContainerXs size={size} focus={focus}>
           <input
             name={name}
             type="checkbox"
@@ -58,7 +53,7 @@ export const AtomToggle = ({
           />
           <span className="slider"></span>
         </ToggleContainerXs>
-        <StatusText font={font} className="status-text">
+        <StatusText className="status-text">
           {checked ? onText : offText}
         </StatusText>
       </ToggleWrapperXs>

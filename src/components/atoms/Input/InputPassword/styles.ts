@@ -1,11 +1,9 @@
-import { IPalette } from "interfaces/index";
-import styled, { CSSObject } from "styled-components";
+import styled from "styled-components";
 
 interface IStylesProps {
+  readOnly?: boolean;
   disabled?: boolean;
   hasError: boolean;
-  styles?: CSSObject;
-  colors?: IPalette;
 }
 
 export const InputContainer = styled.div`
@@ -13,38 +11,38 @@ export const InputContainer = styled.div`
   width: 100%;
 `;
 
-export const InputPassword = styled.input`
-  ${({ styles }) => styles};
+export const InputPassword = styled.input<IStylesProps>`
   outline: 0;
   padding: 10px 45px 10px 15px;
   border: 1px solid;
-  border: ${({ colors }) =>
-    `1px solid ${colors != null ? colors.neutral400 : ""}`};
-  border-color:${({ disabled, hasError, colors }: IStylesProps) =>
+  border-color:${({
+    readOnly,
+    disabled,
+    hasError,
+  }: IStylesProps) =>
     disabled === true
-      ? colors?.neutral300
+      ? 'grey'
+      : readOnly === true
+      ? 'transparent'
       : hasError
-      ? colors?.secondary400
-      : colors?.neutral400};
-  background-color:${({ disabled, colors }: IStylesProps) =>
-    disabled === true ? colors?.neutral300 : colors?.neutral100};
-  color:${({ disabled, colors }: IStylesProps) =>
-    disabled === true ? colors?.neutral600 : colors?.neutral700};
+      ? '#FF7300'
+      : 'rgba(0, 0, 0, 0.12)'};
+      background-color:'#C7C7C7;
+      color: black;
   box-sizing: border-box;
   width: 100%;
   height: 48px;
   border-radius: 8px;
-  
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  &:focus{
-    border-color: ${({ colors, hasError }: IStylesProps) =>
-      !hasError ? colors?.neutral700 : colors?.secondary400};
-  }
   &::placeholder{
-    color: ${({ colors }) => colors?.neutral500};
+    color: ${({ readOnly,
+      disabled,
+      hasError, }: IStylesProps) => disabled === true
+      ? 'grey'
+      : readOnly === true
+      ? 'transparent'
+      : hasError
+      ? '#FF7300'
+      : 'rgba(0, 0, 0, 0.12)'};
     font-weight: 400;
   }
 `;

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { InputNumber } from "./styles";
-import { ErrorsInput, IInputProps } from "interfaces";
-import { ThemeContext } from "context/context";
+import { ErrorsInput, IInputProps } from "../InputTypes";
+import { Input } from "../styles";
 
 export interface IInputNumberProps extends IInputProps {
   /** Initial value */
@@ -23,7 +22,6 @@ export const AtomInputNumber = ({
   max,
   onChange = () => {},
   errorCallback = () => {},
-  styles = {},
   hasCustomValidationError = false,
 }: IInputNumberProps) => {
   const [val, setVal] = useState<string>(value);
@@ -32,8 +30,6 @@ export const AtomInputNumber = ({
   const [numberRegex, setNumberRegex] = useState<RegExp | null>(
     regex ? new RegExp(regex) : null
   );
-
-  const { palette } = useContext(ThemeContext);
 
   const validateInput = () => {
     setHasError(false);
@@ -75,8 +71,7 @@ export const AtomInputNumber = ({
   }, [val, required]);
 
   return (
-    <InputNumber
-      colorPalette={palette}
+    <Input
       type="number"
       hasError={hasError || hasCustomValidationError}
       disabled={disabled}
@@ -91,7 +86,6 @@ export const AtomInputNumber = ({
         setVal(e.target.value);
         onChange(e.target.value);
       }}
-      styles={styles}
     />
   );
 };

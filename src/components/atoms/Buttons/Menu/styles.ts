@@ -13,25 +13,17 @@ interface IIconProps {
 export const GeneralStyledButton = styled.button<IStylesProps>`
   cursor: pointer;
   align-items: center;
-  background-color: transparent;
-      : colorPalette.secondary)};
+  background-color: #262626;
   display: flex;
   flex-direction: ${({ flex }: IStylesProps) => flex};
   height: 60px;
-  justify-content: center;
+  justify-content: ${({ widthHook }: IStylesProps) => widthHook > 700? 'center' : 'start'};
   width:  ${({ widthHook }: IStylesProps) => widthHook > 700? '60px' : '100%'} ;
   padding: 5px;
 
-  &:hover {
-    svg{
-      fill: #FF7300 !important;
-    }
-
-    span{
-      color: #FF7300 !important; 
-    }
+  h2{
+    margin: 0;
   }
-
 `;
 
 export const ContainerIcon = styled.div<IIconProps>`

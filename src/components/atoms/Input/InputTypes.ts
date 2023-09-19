@@ -1,10 +1,8 @@
 export type IInputType =
   | "Text"
-  | "Phone"
   | "Password"
   | "Number"
-  | "Email"
-  | "Date";
+  | "Email";
 
 export type IInputDateSort =
   | "DD-MM-YYYY"
@@ -28,8 +26,6 @@ export type IInputDateSort =
   onChange?: (value: any) => void;
   /** Action to submit a error */
   errorCallback?: (type: ErrorsInput) => void;
-  /** Must be true when a custom validation fails   */
-  hasCustomValidationError?: boolean;
 }
 
 export type ErrorsInput =

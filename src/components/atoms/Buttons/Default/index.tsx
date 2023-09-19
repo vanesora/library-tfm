@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { IProps } from "../ButtonProps";
+import { IPropsButtonDefault } from "../ButtonProps";
 import { GeneralStyledButton } from "./styles";
 import { AtomIcon } from "../../Icon";
 import { AtomParagraph } from "../../Typography/Paragraph";
@@ -16,7 +16,7 @@ export const AtomButtonDefault = ({
   icon,
   position = 'left',
   ...props
-}: IProps) => {
+}: IPropsButtonDefault) => {
 
   return (
     <GeneralStyledButton

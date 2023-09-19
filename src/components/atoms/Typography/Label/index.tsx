@@ -3,7 +3,6 @@ import {
   Label,
 } from "./styles";
 import { ITypographyProps } from "../TypographyProps";
-import parse from "html-react-parser";
 
 export const AtomLabel = ({
   text,
@@ -17,7 +16,7 @@ export const AtomLabel = ({
         align={align}
         color={color ?? 'black'}
       >
-        {parse(text)}
+        {text}
       </Label>
     </>
   );

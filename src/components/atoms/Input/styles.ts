@@ -6,22 +6,18 @@ interface IStylesProps {
   hasError: boolean;
 }
 
-export const Input = styled.input <IStylesProps>`
+export const Input = styled.input<IStylesProps>`
   outline: 0;
   padding: 10px 15px;
   border: 1px solid;
-  border-color:${({
-    readOnly,
-    disabled,
-    hasError,
-  }: IStylesProps) =>
+  border-color:${({ readOnly, disabled, hasError }: IStylesProps) =>
     disabled === true
-      ? 'grey'
+      ? "grey"
       : readOnly === true
-      ? 'transparent'
+      ? "transparent"
       : hasError
-      ? '#FF7300'
-      : 'rgba(0, 0, 0, 0.12)'};
+      ? "#FF7300"
+      : "rgba(0, 0, 0, 0.12)"};
   background-color:'#C7C7C7;
   color: black;
   box-sizing: border-box;
@@ -34,15 +30,47 @@ export const Input = styled.input <IStylesProps>`
     margin: 0;
   }
   &::placeholder{
-    color: ${({ readOnly,
-      disabled,
-      hasError, }: IStylesProps) => disabled === true
-      ? 'grey'
-      : readOnly === true
-      ? 'transparent'
-      : hasError
-      ? '#FF7300'
-      : 'rgba(0, 0, 0, 0.12)'};
+    color: ${({ readOnly, disabled, hasError }: IStylesProps) =>
+      disabled === true
+        ? "grey"
+        : readOnly === true
+        ? "transparent"
+        : hasError
+        ? "#FF7300"
+        : "rgba(0, 0, 0, 0.12)"};
+    font-weight: 400;
+  }
+`;
+
+export const InputWrapper = styled.div<{ error?: boolean, readOnly: boolean }>`
+  width: calc(100% - 20px);
+  height: 48px;
+  position: relative;
+  border: 1px solid ${({ readOnly, error }) => (readOnly? 'none': error ? "#ff7300" : "#646667")};
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 1px 10px;
+
+  &:focus-within {
+    border: 1px solid #2196f3; 
+  }
+`;
+
+export const StyledInput = styled.input<{ error?: boolean }>`
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: ${({ error }) => (error ? "#ff7300" : "#646667")};
+
+  &:focus {
+    border: none;
+  }
+
+  &::placeholder{
+    color: ${({ error }) => (error ? "#ff7300" : "#646667")};
     font-weight: 400;
   }
 `;

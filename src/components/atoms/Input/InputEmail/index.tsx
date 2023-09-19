@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Input } from "../styles";
+import { InputWrapper, StyledInput } from "../styles";
 import { IInputProps } from "../InputTypes";
 
 export interface IInputEmailProps extends IInputProps {
@@ -15,62 +15,48 @@ export const AtomInputEmail = ({
   regex,
   onChange = () => {},
   errorCallback = () => {},
-  hasCustomValidationError = false,
 }: IInputEmailProps) => {
-  const [val, setVal] = useState<string>(value);
-  const [hasError, setHasError] = useState<boolean>(false);
-  const [shouldValidate, setShouldValidate] = useState<boolean>(true);
-  const [mailRegex, setMailRegex] = useState<RegExp | null>(
-    regex ? new RegExp(regex) : null
-  );
-
-  useEffect(() => {
-    const timer = setTimeout(() => validateInput(), 800);
-    return () => clearTimeout(timer);
-  }, [val, required]);
-
-  useEffect(() => {
-    setVal(value);
-  }, [value]);
-
   const emailRegex =
     /^[a-zA-Z0-9.!#$%&'*+?/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,3}){1,2}$/;
+  const [inputValue, setInputValue] = useState(value);
+  const [error, setError] = useState(false);
 
-  const validateInput = () => {
-    setHasError(false);
-    if (shouldValidate) {
-      if (required && val === "") {
-        setHasError(true);
-        errorCallback("required");
-      }
+  const handleInputChange = (e: any) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    onChange && onChange(e.target.value);
+  };
 
-      if (val !== "" && mailRegex !== null && !mailRegex.test(val)) {
-        setHasError(true);
+  const handleBlur = () => {
+    const _regex = regex ?? emailRegex;
+    if (required || ((_regex && inputValue))) {
+      const pattern = new RegExp(_regex);
+      if (!pattern.test(inputValue)) {
+        setError(true);
         errorCallback("regExp");
-      }
-
-      if (val !== "" && !emailRegex.test(val)) {
-        setHasError(true);
-        errorCallback("regExp");
+      } else {
+        setError(false);
+        errorCallback(null);
       }
     }
   };
 
-
   return (
-    <Input
-      type="email"
-      hasError={hasError || hasCustomValidationError}
-      disabled={disabled}
-      placeholder={placeholder}
-      readOnly={readOnly}
-      required={required}
-      value={val}
-      onChange={(e) => {
-        setShouldValidate(true);
-        setVal(e.target.value);
-        onChange(e.target.value);
-      }}
-    />
+    <InputWrapper error={error} readOnly={readOnly}>
+      <StyledInput
+        type="text"
+        disabled={disabled}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        value={inputValue}
+        error={error}
+        onChange={handleInputChange}
+        onBlur={handleBlur}
+        onFocus={() => {
+          setError(false);
+          errorCallback(null);
+        }}
+      />
+    </InputWrapper>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from "react";
 import { Title } from "./styles";
-import parse from "html-react-parser";
 import { ITypographyProps } from "../TypographyProps";
 
 
@@ -37,7 +36,7 @@ export const AtomTitle = ({
         color={color ?? 'black'}
         size={currentSize}
       >
-        {parse(text)}
+        {text}
       </Title>
     </>
   );

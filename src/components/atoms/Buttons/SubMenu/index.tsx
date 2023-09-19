@@ -1,6 +1,6 @@
 import React from "react";
 import { GeneralStyledButton } from "./styles";
-import { IProps } from "../ButtonProps";
+import { IPropsButtonSubMenu } from "../ButtonProps";
 import { AtomSubtitle } from "../../Typography/Subtitle";
 
 export const AtomButtonSubMenu = ({
@@ -12,7 +12,7 @@ export const AtomButtonSubMenu = ({
   size = "small",
   selected=false,
   ...props
-}: IProps) => {
+}: IPropsButtonSubMenu) => {
 
   return (
     <GeneralStyledButton

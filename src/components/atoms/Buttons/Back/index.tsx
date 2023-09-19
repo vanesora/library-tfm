@@ -2,23 +2,14 @@ import React, { useContext } from "react";
 import { GeneralStyledBtn } from "./styles";
 import { AtomIcon } from "../../Icon";
 import { AtomTitle } from "../../Typography/Title";
-
-export interface IPropsBackButton
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Enable or disable the button */
-  disabled: boolean;
-  /** Click action */
-  onClick?: (e?: any) => void;
-  /** Text of button */
-  text?: string;
-}
+import { IPropsButtonBack } from "../ButtonProps";
 
 export const AtomButtonBack = ({
   disabled,
   onClick,
   text,
   ...props
-}: IPropsBackButton) => {
+}: IPropsButtonBack) => {
 
   return (
     <GeneralStyledBtn

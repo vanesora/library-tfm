@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ErrorsInput, IInputProps } from "../InputTypes";
-import { Input } from "../styles";
+import { Input, InputWrapper, StyledInput } from "../styles";
 
 export interface IInputNumberProps extends IInputProps {
   /** Initial value */
@@ -22,70 +22,60 @@ export const AtomInputNumber = ({
   max,
   onChange = () => {},
   errorCallback = () => {},
-  hasCustomValidationError = false,
 }: IInputNumberProps) => {
-  const [val, setVal] = useState<string>(value);
-  const [hasError, setHasError] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(value);
+  const [error, setError] = useState<boolean>(false);
   const [shouldValidate, setShouldValidate] = useState<boolean>(true);
-  const [numberRegex, setNumberRegex] = useState<RegExp | null>(
-    regex ? new RegExp(regex) : null
-  );
 
-  const validateInput = () => {
-    setHasError(false);
+  const handleInputChange = (e: any) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    onChange && onChange(e.target.value);
+  };
+
+
+  const handleBlur = () => {
+    setError(false);
     if (shouldValidate) {
       let error: ErrorsInput = null;
-      const intValue = parseInt(val);
+      const intValue = parseInt(inputValue);
       if (intValue < parseInt(min!)) {
-        setHasError(true);
+        setError(true);
         error = "min";
       }
       if (intValue > parseInt(max!)) {
-        setHasError(true);
+        setError(true);
         error = "max";
       }
-      if (numberRegex != null && val !== "" && !numberRegex.test(val)) {
-        setHasError(true);
+      const pattern = new RegExp(regex);
+      if (pattern != null && inputValue !== "" && !pattern.test(inputValue)) {
+        setError(true);
         error = "regExp";
       }
-
-      if (required && val === "") {
-        setHasError(true);
+      if (required && inputValue === "") {
+        setError(true);
         error = "required";
       }
       error !== null && errorCallback && errorCallback(error);
     }
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => validateInput(), 800);
-    return () => clearTimeout(timer);
-  }, [val, required]);
-
-  useEffect(() => {
-    setVal(value);
-  }, [value]);
-
-  useEffect(() => {
-    validateInput();
-  }, [val, required]);
-
   return (
-    <Input
-      type="number"
-      hasError={hasError || hasCustomValidationError}
-      disabled={disabled}
-      placeholder={placeholder}
-      readOnly={readOnly}
-      required={required}
-      value={val}
-      min={min}
-      max={max}
-      onChange={(e) => {
-        setShouldValidate(true);
-        setVal(e.target.value);
-        onChange(e.target.value);
-      }}
-    />
+    <InputWrapper error={error} readOnly={readOnly}>
+      <StyledInput
+        type="number"
+        disabled={disabled}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        value={inputValue}
+        error={error}
+        onChange={handleInputChange}
+        onBlur={handleBlur}
+        onFocus={() => {
+          setError(false);
+          errorCallback(null);
+        }}
+      />
+    </InputWrapper>
   );
 };

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { AtomButtonBack, IPropsBackButton } from "../../../components";
+import { AtomButtonBack } from "../../../components";
 
 const meta: Meta = {
   title: "React/atoms/Button/Back",
@@ -15,6 +15,7 @@ const meta: Meta = {
   parameters: {
     controls: { expanded: true },
   },
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -22,11 +23,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Back: Story = {
+export const ButtonBack: Story = {
   args: {
     disabled: false,
     onClick: action("Event Click"),
-    text: "Back to rewards",
+    text: "Agregar Usuario",
     width: "140px",
   },
 };

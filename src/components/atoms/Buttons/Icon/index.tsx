@@ -1,9 +1,7 @@
 import React from "react";
 import { GeneralStyledBtn, IconContainer } from "./styles";
 import {
-  ButtonHeight,
-  IconAlign,
-  IProps,
+  IPropsButtonIcon,
 } from "../ButtonProps";
 import { AtomIcon } from "../../Icon";
 
@@ -12,13 +10,12 @@ export const AtomButtonIcon = ({
   disabled,
   onClick,
   color,
-  text,
   type,
   icon,
   customColor = "black",
   size = "small",
   ...props
-}: IProps) => {
+}: IPropsButtonIcon) => {
 
   return (
     <GeneralStyledBtn

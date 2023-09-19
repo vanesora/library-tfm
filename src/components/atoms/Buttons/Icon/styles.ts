@@ -51,7 +51,6 @@ export const GeneralStyledBtn = styled.button<IStylesProps>`
 
   &:disabled {
     background-color: #767171;
-    border-radius: 4px;
     border: 1px solid #6c6767;
     color: white;
   }

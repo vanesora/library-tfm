@@ -16,7 +16,6 @@ describe("[React ]AtomInputText", () => {
         disabled={false}
         readOnly={false}
         onChange={mockChange}
-        hasCustomValidationError={false}
       />
     );
     const input = screen.getByRole("input") as HTMLInputElement;

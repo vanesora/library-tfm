@@ -33,6 +33,7 @@ export const GeneralStyledButton = styled.button<IStylesProps>`
   line-height: 16px;
   width: ${({ width }: IStylesProps) => width};
   padding: 8px 24px;
+  gap: 5px;
   color: ${({ color }: IStylesProps) =>
   color === "custom"
     ? 'white'

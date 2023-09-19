@@ -1,84 +1,71 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-interface ITextStyleProps {
-  font: string;
-}
-
-interface IStylesProps {
-  size?: string;
-  focus?: boolean;
-}
-
-interface ItoggleWrapperProps {
-  focus?: boolean;
-}
-export const ToggleWrapperXs = styled.div<ItoggleWrapperProps>`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  align-items: center;
-  padding: 8px 8px 8px 4px;
-  min-width: 60px;
-  width: fit-content;
-  height: 40px;
-  box-sizing: border-box;
-  border-radius: 8px;
-  border: 2px solid;
-  boder-color: ${({ focus }: ItoggleWrapperProps) =>
-    focus ? '#090088' :  '#767171'}; 
-`;
-export const LabelTextXs = styled.label`
-  display: inline-block;
-  font-style: normal;
-  font-size: 16px;
-`;
-
-export const ToggleContainerXs = styled.label<IStylesProps>`
+export const commonStyles = css`
   position: relative;
   display: inline-block;
-  width: auto;
-  height: ${({ size }: IStylesProps) => (size === "xs" ? "24px" : "16px")};
-  min-width:${({ size }: IStylesProps) => (size === "xs" ? "48px" : "32px")};
+  height: 34px;
+  border-radius: 34px;
+`;
 
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+export const smallStyles = css<{ withText?: boolean}>`
+  width: ${({ withText }) => (withText ? "60px" : "40px")};
+`;
 
-    &:checked + span.slider,
-    &:active + span.slider {
-      background-color: ${({ focus }: ItoggleWrapperProps) =>
-        focus ? '#090088' :  '#767171'}
-    }
+export const mediumStyles = css<{ withText?: boolean, size?: 'small' | 'medium' }>`
+  width: ${({ withText }) => (withText ? "80px" : "60px")};
+`;
 
-    &:disabled + span.slider {
-      background-color: #767171;
-    }
+export const ToggleSwitchContainer = styled.label<{ size?: 'small' | 'medium' }>`
+  ${commonStyles};
+  ${({ size }) => (size === "small" ? smallStyles : mediumStyles)};
+`;
 
-    &:checked + span.slider:before {
-      -webkit-transform: translateX(${({ size }: IStylesProps) =>
-        size === "xs" ? "23px" : "14px"});
-      -ms-transform: translateX(${({ size }: IStylesProps) =>
-        size === "xs" ? "23px" : "14px"});
-      transform: translateX(${({ size }: IStylesProps) =>
-        size === "xs" ? "23px" : "14px"});
-      background-color: #767171;
-    }
+export const Slider = styled.span<{ disabled?: boolean }>`
+  position: absolute;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: ${({ disabled }) => (disabled ? "#ccc" : "#ccc")};
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
 
-    &:checked:disabled + span.slider:before {
-      -webkit-transform: translateX(${({ size }: IStylesProps) =>
-        size === "xs" ? "23px" : "14px"});
-      -ms-transform: translateX(${({ size }: IStylesProps) =>
-        size === "xs" ? "23px" : "14px"});
-      transform: translateX(${({ size }: IStylesProps) =>
-        size === "xs" ? "23px" : "14px"});
-    }
-
+  &:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 50%;
   }
 `;
 
-export const StatusText = styled.span`
-  vertical-align: middle;
-  margin-left: 5px;
+export const HiddenInput = styled.input.attrs({ type: "checkbox" })`
+  display: none;
+
+  &:checked + ${Slider} {
+    background-color: ${({ disabled }) => (disabled ? "#ccc" : "#2196F3")};
+  }
+
+  &:checked + ${Slider}:before {
+    -webkit-transform: ${({ disabled }) =>
+      disabled ? "translateX(0)" : "translateX(26px)"};
+    -ms-transform: ${({ disabled }) =>
+      disabled ? "translateX(0)" : "translateX(26px)"};
+    transform: ${({ disabled }) =>
+      disabled ? "translateX(0)" : "translateX(26px)"};
+  }
+`;
+
+export const Text = styled.span<{ disabled?: boolean }>`
+  margin-left: 10px;
+  font-size: 14px;
+  color: ${({ disabled }) => (disabled ? "#ccc" : "#333")};
 `;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Input } from "../styles";
+import { Input, InputWrapper, StyledInput } from "../styles";
 import { IInputProps } from "../InputTypes";
 
 export interface IInputTextProps extends IInputProps {
@@ -15,55 +15,48 @@ export const AtomInputText = ({
   onChange = () => {},
   errorCallback = () => {},
   regex,
-  hasCustomValidationError = false,
 }: IInputTextProps) => {
-  const [val, setVal] = useState<string>(value);
-  const [shouldValidate, setShouldValidate] = useState<boolean>(true);
-  const [hasError, setHasError] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(value);
+  const [error, setError] = useState<boolean>(false);
 
-  useState<boolean>(false);
   const [textRegex, setTextRegex] = useState<RegExp | null>(
     regex ? new RegExp(regex) : null
   );
 
-  const validateInput = () => {
-    setHasError(false);
-    if (shouldValidate) {
-      if (textRegex !== null && !textRegex.test(val)) {
-        setHasError(true);
-        errorCallback("regExp");
-      }
-      if (required && val === "") {
-        setHasError(true);
-        errorCallback("required");
-      }
-    }
+  const handleInputChange = (e: any) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    onChange && onChange(e.target.value);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => validateInput(), 800);
-    return () => clearTimeout(timer);
-  }, [val, required]);
-
-  useEffect(() => {
-    setVal(value);
-    setTextRegex(regex ? new RegExp(regex) : null);
-  }, [value]);
+  const handleBlur = () => {
+    setError(false);
+      if (textRegex !== null && !textRegex.test(inputValue)) {
+        setError(true);
+        errorCallback("regExp");
+      }
+      if (required && inputValue === "") {
+        setError(true);
+        errorCallback("required");
+      }
+  };
 
   return (
-    <Input
-      type="text"
-      disabled={disabled}
-      placeholder={placeholder}
-      readOnly={readOnly}
-      required={required}
-      value={val}
-      hasError={hasError || hasCustomValidationError}
-      onChange={(e) => {
-        setShouldValidate(true);
-        setVal(e.target.value);
-        onChange(e.target.value);
-      }}
-    />
+    <InputWrapper error={error} readOnly={readOnly}>
+      <StyledInput
+        type="text"
+        disabled={disabled}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        value={inputValue}
+        error={error}
+        onChange={handleInputChange}
+        onBlur={handleBlur}
+        onFocus={() => {
+          setError(false);
+          errorCallback(null);
+        }}
+      />
+    </InputWrapper>
   );
 };

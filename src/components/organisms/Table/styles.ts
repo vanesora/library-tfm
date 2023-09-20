@@ -31,3 +31,8 @@ export const ActionCell = styled.td`
   display: flex;
   justify-content: start;
 `;
+
+export const PaginatorContainer = styled.table`
+display: flex;
+justify-content: start;
+`;

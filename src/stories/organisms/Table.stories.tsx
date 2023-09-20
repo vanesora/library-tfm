@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { OrganismSideNavBar } from "../../components/organisms/SideNavBar";
 import { OrganismTable } from "../../components/organisms/Table";
 const meta: Meta = {
   title: "React/organisms/Table",
@@ -37,6 +36,7 @@ export const Table: Story = {
       view: action("click edit")
     },
     showId: false,
-    showStatus: false
+    showStatus: false,
+    totalPages: 3
   },
 };

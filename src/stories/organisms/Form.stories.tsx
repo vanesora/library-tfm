@@ -27,7 +27,7 @@ export const Form: Story = {
     inputs: [
       {
         label: "Nombre",
-        type: "text",
+        type: "Text",
         value: "Texto 1",
         required: true,
         name: "name",
@@ -38,7 +38,7 @@ export const Form: Story = {
       },
       {
         label: "Email",
-        type: "email",
+        type: "Email",
         value: "",
         required: true,
         name: "email",
@@ -49,7 +49,7 @@ export const Form: Story = {
       },
       {
         label: "Contraseña",
-        type: "password",
+        type: "Password",
         value: "sdasdada",
         required: true,
         name: "password",
@@ -60,7 +60,7 @@ export const Form: Story = {
       },
       {
         label: "Número",
-        type: "number",
+        type: "Number",
         value: 0,
         required: false,
         name: "number",
@@ -71,6 +71,8 @@ export const Form: Story = {
       },
     ],
     theme: 'light',
-    onSubmit: action("Event change")
+    onSubmit: action("Event change"),
+    buttonText: 'Submit',
+    disabled: false
   },
 };

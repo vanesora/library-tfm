@@ -1,15 +1,29 @@
 import React, { useState } from "react";
 import { IMoleculeInputProps, MoleculeInput } from "../../molecules/Input";
+import { AtomButtonDefault } from "../../atoms/Buttons/Default";
 
 interface IFormProps {
+  /** Array properties Inputs */
   inputs: IMoleculeInputProps[];
+  /** Colors by form */
   theme: "light" | "dark";
-  onSubmit: (e?: any)=>void;
+  /** Submit form */
+  onSubmit: (e?: any) => void;
+  /** Text of button */
+  buttonText: string;
+  /** disabled form */
+  disabled: boolean;
 }
 
-export const OrganismForm = ({ inputs, theme, onSubmit }: IFormProps) => {
+export const OrganismForm = ({
+  inputs,
+  theme,
+  onSubmit,
+  buttonText,
+  disabled
+}: IFormProps) => {
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<{ [key: string]: any }>({});
 
   const handleChange = (name: string, value: string) => {
     setFormData({
@@ -31,9 +45,9 @@ export const OrganismForm = ({ inputs, theme, onSubmit }: IFormProps) => {
     const hasErrors = Object.values(errors).some((error) => error);
 
     if (hasErrors) {
-      console.log('Hay errores en el formulario. Corrige los campos.');
+      console.log("Hay errores en el formulario. Corrige los campos.");
     } else {
-      console.log('Formulario enviado con éxito:', formData);
+      console.log("Formulario enviado con éxito:", formData);
       if (onSubmit) {
         onSubmit(formData);
       }
@@ -47,7 +61,7 @@ export const OrganismForm = ({ inputs, theme, onSubmit }: IFormProps) => {
           name={input.name}
           key={index}
           label={input.label}
-          helperText={input.helperText}
+          helperText={errors[input.name]? input.helperText : ''}
           type={input.type}
           value={formData[input.name] || ""}
           theme={theme}
@@ -60,7 +74,7 @@ export const OrganismForm = ({ inputs, theme, onSubmit }: IFormProps) => {
           regex={input.regex}
         />
       ))}
-      <button type="submit">Submit</button>
+      <AtomButtonDefault disabled={disabled} text={buttonText} />
     </form>
   );
 };

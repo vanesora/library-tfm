@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { CloseButton, Content, HeaderMenu, Menu, Sidebar } from "./styles";
 import { IItemProps, MoleculeListSelect } from "../../molecules/ListSelect";

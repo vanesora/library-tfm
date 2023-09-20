@@ -20,6 +20,9 @@ export const AtomInputEmail = ({
     /^[a-zA-Z0-9.!#$%&'*+?/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,3}){1,2}$/;
   const [inputValue, setInputValue] = useState(value);
   const [error, setError] = useState(false);
+  const [textRegex, setTextRegex] = useState<RegExp>(
+    regex ? new RegExp(regex) : new RegExp(emailRegex) 
+  );
 
   const handleInputChange = (e: any) => {
     const newValue = e.target.value;
@@ -28,16 +31,14 @@ export const AtomInputEmail = ({
   };
 
   const handleBlur = () => {
-    const _regex = regex ?? emailRegex;
-    if (required || ((_regex && inputValue))) {
-      const pattern = new RegExp(_regex);
-      if (!pattern.test(inputValue)) {
-        setError(true);
-        errorCallback("regExp");
-      } else {
-        setError(false);
-        errorCallback(null);
-      }
+    setError(false);
+    if (textRegex !== null && !textRegex.test(inputValue)) {
+      setError(true);
+      errorCallback("regExp");
+    }
+    if (required && inputValue === "") {
+      setError(true);
+      errorCallback("required");
     }
   };
 

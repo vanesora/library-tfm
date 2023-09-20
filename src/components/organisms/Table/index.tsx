@@ -6,6 +6,7 @@ import { AtomIcon } from "../../atoms/Icon";
 import { AtomSubtitle } from "../../atoms/Typography/Subtitle";
 import {
   ActionCell,
+  PaginatorContainer,
   TableCell,
   TableContainer,
   TableHeader,
@@ -13,6 +14,7 @@ import {
 } from "./styles";
 import { AtomButtonIcon } from "../../atoms/Buttons/Icon";
 import { AtomToggle } from "../../atoms/Toggle";
+import { MoleculePaginator } from "../../molecules/Paginator";
 
 export interface ITableProps {
   /** headers and keys */
@@ -30,6 +32,10 @@ export interface ITableProps {
   showId?: boolean;
   /** View status */
   showStatus: boolean;
+  /** Total pages table */
+  totalPages: number;
+  /** changePage action */
+  onPageChange: (e?: any) => void;
 }
 
 export const OrganismTable = ({
@@ -38,7 +44,10 @@ export const OrganismTable = ({
   actions,
   showId,
   showStatus,
+  totalPages,
+  onPageChange,
 }: ITableProps): JSX.Element => {
+  const [currentPage, setCurrentPage] = useState(1);
   const executeAction = (actionType: any, rowData: any) => {
     if (actionType === "edit" && actions?.edit) {
       actions.edit(rowData);
@@ -48,6 +57,15 @@ export const OrganismTable = ({
       actions.changeStatus(rowData);
     } else if (actionType === "view" && actions?.view) {
       actions.view(rowData);
+    }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      if (onPageChange) {
+        onPageChange(newPage);
+      }
     }
   };
 
@@ -108,12 +126,13 @@ export const OrganismTable = ({
                         />
                       )}
                       {actions.changeStatus && (
-                        <AtomToggle size="medium"
+                        <AtomToggle
+                          size="medium"
                           onToggle={() => executeAction("changeStatus", row)}
                         />
                       )}
                       {actions.view && (
-                        <AtomButtonIcon 
+                        <AtomButtonIcon
                           icon="eye-on"
                           onClick={() => executeAction("view", row)}
                           disabled={false}
@@ -125,7 +144,13 @@ export const OrganismTable = ({
             ))}
         </tbody>
       </TableContainer>
-      {/* Agrega aquí el componente Paginator para la paginación */}
+      <PaginatorContainer>
+        <MoleculePaginator
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </PaginatorContainer>
     </>
   );
 };

@@ -7,7 +7,6 @@ import { AtomIcon } from "../../Icon";
 
 
 export const AtomButtonIcon = ({
-  disabled,
   onClick,
   color,
   type,
@@ -19,7 +18,6 @@ export const AtomButtonIcon = ({
 
   return (
     <GeneralStyledBtn
-      disabled={disabled}
       onClick={onClick}
       color={color?? 'primary'}
       type={type}

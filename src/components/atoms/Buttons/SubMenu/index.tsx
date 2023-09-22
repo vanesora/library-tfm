@@ -4,7 +4,6 @@ import { IPropsButtonSubMenu } from "../ButtonProps";
 import { AtomSubtitle } from "../../Typography/Subtitle";
 
 export const AtomButtonSubMenu = ({
-  disabled,
   onClick,
   text,
   type,
@@ -16,7 +15,6 @@ export const AtomButtonSubMenu = ({
 
   return (
     <GeneralStyledButton
-      disabled={disabled}
       onClick={onClick}
       width={width}
       type={type}

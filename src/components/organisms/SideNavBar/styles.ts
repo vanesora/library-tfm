@@ -2,18 +2,19 @@
 import styled from "styled-components";
 
 export const Sidebar = styled.div<{ isMenuOpen: boolean }>`
-  width: 98%;
-  max-width: 98%;
+  width: 100%;
+  max-width: 100%;
   height: 100%;
   max-height: 100%;
   background-color: #333;
   color: #fff;
   position: absolute;
-  top: 0,
-  left: 0,
-  right: 0,
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1;
   display: flex;
+
 `;
 
 export const Content = styled.div<{ isMenuOpen: boolean }>`
@@ -26,13 +27,14 @@ export const Content = styled.div<{ isMenuOpen: boolean }>`
   }
 `;
 
-export const Menu = styled.div<{ isMenuOpen: boolean }>`
+export const Menu = styled.div<{ isMenuOpen: boolean, notView: boolean }>`
+  display: ${({ notView }) => (notView ? "none" :"block")};
   background-color: #262626;
   z-index: 3;
   
   @media (max-width: 700px) {
     width: 260px;
-    display: ${({ isMenuOpen }) => (isMenuOpen ? "block" : "none")};
+    display: ${({ isMenuOpen, notView }) => (isMenuOpen ? ( notView? "none" :"block") : "none")};
     position: fixed;
   }
 `;

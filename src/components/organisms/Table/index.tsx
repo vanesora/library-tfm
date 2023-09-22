@@ -1,9 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { IItemProps, MoleculeListSelect } from "../../molecules/ListSelect";
-import { MoleculeHeader } from "../../molecules/Header";
-import { AtomIcon } from "../../atoms/Icon";
-import { AtomSubtitle } from "../../atoms/Typography/Subtitle";
 import {
   ActionCell,
   PaginatorContainer,
@@ -34,6 +30,8 @@ export interface ITableProps {
   showStatus: boolean;
   /** Total pages table */
   totalPages: number;
+  /** Initial page table */
+  initialPage?: number;
   /** changePage action */
   onPageChange: (e?: any) => void;
 }
@@ -46,8 +44,9 @@ export const OrganismTable = ({
   showStatus,
   totalPages,
   onPageChange,
+  initialPage,
 }: ITableProps): JSX.Element => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(initialPage??  1);
   const executeAction = (actionType: any, rowData: any) => {
     if (actionType === "edit" && actions?.edit) {
       actions.edit(rowData);

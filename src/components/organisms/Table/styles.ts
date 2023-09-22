@@ -23,6 +23,7 @@ export const TableRow = styled.tr`
 export const TableCell = styled.td`
   padding: 8px;
   border: 1px solid orange;
+  color: black;
 `;
 
 export const ActionCell = styled.td`

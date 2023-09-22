@@ -5,7 +5,6 @@ import { AtomTitle } from "../../Typography/Title";
 import { IPropsButtonBack } from "../ButtonProps";
 
 export const AtomButtonBack = ({
-  disabled,
   onClick,
   text,
   ...props
@@ -14,20 +13,19 @@ export const AtomButtonBack = ({
   return (
     <GeneralStyledBtn
       {...props}
-      disabled={disabled}
       onClick={onClick}
       type={"button"}
     >
       <AtomIcon
         icon="keyboard_arrow_left"
         size={'large'}
-        color={disabled ? "#767171" : '#090088'}
+        color={props.disabled ? "#767171" : '#090088'}
       />
       {text && (
         <AtomTitle
           text={text}
           size="large"
-          color={disabled ? "#767171" : "#090088"}
+          color={props.disabled ? "#767171" : "#090088"}
         />
       )}
     </GeneralStyledBtn>

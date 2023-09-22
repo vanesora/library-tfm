@@ -7,7 +7,6 @@ import { AtomParagraph } from "../../Typography/Paragraph";
 import { AtomSubtitle } from "../../Typography/Subtitle";
 
 export const AtomButtonMenu = ({
-  disabled,
   onClick,
   text,
   icon,
@@ -21,7 +20,6 @@ export const AtomButtonMenu = ({
 
   return (
     <GeneralStyledButton
-      disabled={disabled}
       onClick={onClick}
       type={type}
       flex={widthHook > 700? 'column': 'row'}

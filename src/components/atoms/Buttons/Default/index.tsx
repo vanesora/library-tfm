@@ -5,7 +5,6 @@ import { AtomIcon } from "../../Icon";
 import { AtomParagraph } from "../../Typography/Paragraph";
 
 export const AtomButtonDefault = ({
-  disabled,
   onClick,
   color='primary',
   text,
@@ -20,7 +19,6 @@ export const AtomButtonDefault = ({
 
   return (
     <GeneralStyledButton
-      disabled={disabled}
       onClick={onClick}
       color={color}
       width={width}

@@ -7,6 +7,7 @@ describe("[React] GlobalHeader", () => {
   const props: IGlobalHeaderProps = {
     userName: "",
     menuData: [],
+    notView: false,
     handleClickLogOut: function (selectedTab: string): void {
       throw new Error("Function not implemented.");
     },

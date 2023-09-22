@@ -4,8 +4,6 @@ export type IconAlign = "left" | "right";
 export type ButtonSize = "small" | "medium" | "large";
 
 export interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Enable or disable the button */
-  disabled: boolean;
   /** Click action */
   onClick?: (e?: any) => void;
 }

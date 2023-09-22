@@ -17,6 +17,8 @@ export interface IGlobalHeaderProps {
   children?: React.ReactNode;
   /** item List menu */
   menuData: IItemProps[];
+  /** don't view Menu */
+  notView: boolean;
 }
 
 export const OrganismSideNavBar = ({
@@ -25,6 +27,7 @@ export const OrganismSideNavBar = ({
   handleClickLogOut,
   menuData,
   buttonSelectClick,
+  notView
 }: IGlobalHeaderProps): JSX.Element => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -33,14 +36,13 @@ export const OrganismSideNavBar = ({
   };
 
   const handleButtonSelect = (item: any) => {
-    buttonSelectClick && buttonSelectClick();
-    console.log("item selected: ", item);
+    buttonSelectClick && buttonSelectClick(item);
   };
 
   return (
     <>
       <Sidebar isMenuOpen={isMenuOpen}>
-        <Menu isMenuOpen={isMenuOpen}>
+        <Menu isMenuOpen={isMenuOpen} notView={notView}>
           <HeaderMenu>
             <CloseButton onClick={toggleMenu}>
               <AtomIcon icon="close" size="medium" color="white" />
@@ -50,17 +52,19 @@ export const OrganismSideNavBar = ({
           <MoleculeListSelect
             data={menuData}
             direction="column"
-            initialSelected={1}
+            initialSelected={0}
             onButtonSelect={handleButtonSelect}
           />
         </Menu>
 
         <Content isMenuOpen={isMenuOpen}>
-          <MoleculeHeader
-            userName={userName}
-            onMenuToggle={toggleMenu}
-            onLogout={handleClickLogOut}
-          />
+          <div style={{display: notView? 'none' : 'block'}}>
+            <MoleculeHeader
+              userName={userName}
+              onMenuToggle={toggleMenu}
+              onLogout={handleClickLogOut}
+            />
+          </div>
           {children}
         </Content>
       </Sidebar>

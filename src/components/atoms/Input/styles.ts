@@ -47,10 +47,12 @@ export const InputWrapper = styled.div<{ error?: boolean, readOnly: boolean }>`
   height: 48px;
   position: relative;
   border: 1px solid ${({ readOnly, error }) => (readOnly? 'none': error ? "#ff7300" : "#646667")};
+  border-width: ${({ readOnly, error }) => (readOnly? 'none': error ? "2px" : "1px")};
   border-radius: 8px;
   display: flex;
   align-items: center;
   padding: 1px 10px;
+  background-color: #d1d1d1;
 
   &:focus-within {
     border: 1px solid #2196f3; 
@@ -64,6 +66,7 @@ export const StyledInput = styled.input<{ error?: boolean }>`
   border: none;
   outline: none;
   color: ${({ error }) => (error ? "#ff7300" : "#646667")};
+  background-color: #d1d1d1;
 
   &:focus {
     border: none;

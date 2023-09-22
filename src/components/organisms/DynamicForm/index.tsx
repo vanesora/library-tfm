@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IMoleculeInputProps, MoleculeInput } from "../../molecules/Input";
 import { AtomButtonDefault } from "../../atoms/Buttons/Default";
+import { ContainerButton, FormDynamic } from "./styles";
 
 interface IFormProps {
   /** Array properties Inputs */
@@ -13,6 +14,8 @@ interface IFormProps {
   buttonText: string;
   /** disabled form */
   disabled: boolean;
+  /** number of columns */
+  columns?: number;
 }
 
 export const OrganismForm = ({
@@ -20,7 +23,8 @@ export const OrganismForm = ({
   theme,
   onSubmit,
   buttonText,
-  disabled
+  disabled,
+  columns = 1,
 }: IFormProps) => {
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
   const [errors, setErrors] = useState<{ [key: string]: any }>({});
@@ -55,26 +59,39 @@ export const OrganismForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {inputs.map((input, index) => (
-        <MoleculeInput
-          name={input.name}
-          key={index}
-          label={input.label}
-          helperText={errors[input.name]? input.helperText : ''}
-          type={input.type}
-          value={formData[input.name] || ""}
-          theme={theme}
-          disabled={input.disabled}
-          placeholder={input.placeholder}
-          readOnly={input.readOnly}
-          required={input.required}
-          onChange={(value) => handleChange(input.name, value)}
-          errorCallback={(error) => handleBlur(input.name, error)}
-          regex={input.regex}
-        />
-      ))}
-      <AtomButtonDefault disabled={disabled} text={buttonText} />
-    </form>
+    <FormDynamic onSubmit={handleSubmit}>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {inputs.map((input, index) => (
+          <div
+            key={index}
+            style={{
+              flexBasis: `${100 / columns}%`,
+              boxSizing: "border-box",
+              padding: "0 5px",
+            }}
+          >
+            <MoleculeInput
+              name={input.name}
+              key={index}
+              label={input.label}
+              helperText={errors[input.name] ? input.helperText : ""}
+              type={input.type}
+              value={formData[input.name] || ""}
+              theme={theme}
+              disabled={input.disabled}
+              placeholder={input.placeholder}
+              readOnly={input.readOnly}
+              required={input.required}
+              onChange={(value) => handleChange(input.name, value)}
+              errorCallback={(error) => handleBlur(input.name, error)}
+              regex={input.regex}
+            />
+          </div>
+        ))}
+      </div>
+      <ContainerButton>
+        <AtomButtonDefault disabled={disabled} text={buttonText} size="medium"/>
+      </ContainerButton>
+    </FormDynamic>
   );
 };

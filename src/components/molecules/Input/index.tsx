@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { HelperTextContainer } from "./styles";
+import { ContainerInput, HelperTextContainer } from "./styles";
 import { IInputProps, IInputType } from "../../atoms/Input/InputTypes";
 import { AtomInputText } from "../../atoms/Input/InputText";
 import { AtomInputPassword } from "../../atoms/Input/InputPassword";
@@ -103,7 +103,7 @@ export const MoleculeInput = ({
       break;
   }
   return (
-    <Fragment>
+    <ContainerInput>
       {label !== "" && (
         <AtomLabel size="large" text={label} color={theme === 'light'? '#090088' : 'white'} />
       )}
@@ -117,6 +117,6 @@ export const MoleculeInput = ({
           />
         </HelperTextContainer>
       )}
-    </Fragment>
+    </ContainerInput>
   );
 };

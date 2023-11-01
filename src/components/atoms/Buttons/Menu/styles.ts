@@ -20,6 +20,7 @@ export const GeneralStyledButton = styled.button<IStylesProps>`
   justify-content: ${({ widthHook }: IStylesProps) => widthHook > 700? 'center' : 'start'};
   width:  ${({ widthHook }: IStylesProps) => widthHook > 700? '60px' : '100%'} ;
   padding: 5px;
+  border: none;
 
   h2{
     margin: 0;
